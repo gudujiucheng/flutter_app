@@ -58,6 +58,10 @@ void main() {
   var list02 = [1, 2, 3];
 // 把 printElement函数作为一个参数传递进来(类型要匹配)，这样居然也行，厉害了，真是万物皆对象
   list02.forEach(printElement);
+
+  //还是会有异常抛出来的
+  String a;
+  print('长度：'+a.length.toString());
 }
 
 void test(int str) {
