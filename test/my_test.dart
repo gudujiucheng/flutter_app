@@ -46,24 +46,82 @@ void main() {
   //如果expr1非空，则返回其值; 否则，评估并返回expr2的值。
   String x = expr1 ?? expr2;
   print(x);
-
   var str = "";
   test(1);
+  sayWord("x", "哈哈哈");
+  sayWord("x", "哈哈哈", "6666");
+  say("x", "哈哈哈");
+  //实验表明是不可以改变可变参数的顺序的
+  say01("x", "哈哈哈", true);
+
+
+  var list02 = [1, 2, 3];
+// 把 printElement函数作为一个参数传递进来(类型要匹配)，这样居然也行，厉害了，真是万物皆对象
+  list02.forEach(printElement);
 }
 
 void test(int str) {
   print(str);
 }
+
 //上面的函数只有一个表达式的时候，也可以这么简写
-void testJx(int str) =>  print(str);
+void testJx(int str) => print(str);
+//也可以不写参数类型
+void testN(str) {
+  print(str);
+}
 
 //链式调用
-void testLS(){
+void testLS() {
+  //TODO 需要简单看下对象的写法，才能测试这个
 //  querySelector('#confirm') // Get an object.
 //    ..text = 'Confirm' // Use its members.
 //    ..classes.add('important')
 //    ..onClick.listen((e) => window.alert('Confirmed!'));
+}
+//[]它们标记为可选的位置参数
+String sayWord(String from, String msg, [String device]) {
+  var result = '$from says $msg';
+  if (device != null) {
+    result = '$result with a $device';
+  }
+  //x says 哈哈哈
+  //x says 哈哈哈 with a 6666
+  print(result);
+  return result;
+}
 
+//可选位置的参数还可以设置默认值
+String say(String from, String msg,
+    [String device = '这里还可以设置默认值', String mood]) {
+  var result = '$from says $msg';
+  if (device != null) {
+    result = '$result with a $device';
+  }
+  if (mood != null) {
+    result = '$result (in a $mood mood)';
+  }
+  //x says 哈哈哈 with a 这里还可以设置默认值
+  print(result);
+  return result;
+}
+
+String say01(String from, String msg, [device = '这里还可以设置默认值', bool mood]) {
+  var result = '$from says $msg';
+  if (device != null) {
+    result = '$result with a $device';
+  }
+  if (mood != null) {
+    result = '$result (in a $mood mood)';
+  }
+  //是不可以改变可选参数的顺序的
+  print(result);
+  return result;
+}
+
+
+void printElement(int element) {
+  print(element);
 }
 
 
