@@ -12,38 +12,77 @@ class MyApp extends StatelessWidget {
     final wordPair = new WordPair.random();
     return new MaterialApp(
       title: 'Welcome to Flutter',
-      home: new Scaffold(
-        //一个weight 提供默认导航栏和标题等
-        appBar: new AppBar(
-          title: new Text('Welcome to Flutter'),
-        ),
-        body: new Center(
-//          child: new Text(wordPair.asPascalCase),//调用驼峰格式
-          child: new RandomWords(),//调用驼峰格式
-        ),
-      ),
+//      home: new Scaffold(
+//        //一个weight 提供默认导航栏和标题等
+//        appBar: new AppBar(
+//          title: new Text('Welcome to Flutter'),
+//        ),
+//        body: new Center(
+////          child: new Text(wordPair.asPascalCase),//调用驼峰格式
+//          child: new RandomWords(), //调用驼峰格式
+//        ),
+//      ),
+
+     home: new RandomWords(),
+
+
     );
   }
 }
-
-
 
 // StatelessWidget 是不可变的，意味着属性不能改变，所有的值都是最终的
 // StatefulWidget 在生命周期内是可以变的，实现一个StatefulWidget 至少需要两个类
 //1、StatelessWidget
 //2、State类 StatelessWidget本身是不变的，但是 state在weight声明周期始终存在
 
-class RandomWords extends StatefulWidget{
+class RandomWords extends StatefulWidget {
   @override
-  createState()=>new RandomWordsState();
-
+  createState() => new RandomWordsState();
 }
 
 //该类持有 RandomWords weight 的状态
 class RandomWordsState extends State<RandomWords> {
+  //创建一个列表，给listiew 塞数据
+  final _wordList = <WordPair>[];
+
+  //字体大小样式
+  final _fontSize = const TextStyle(fontSize: 18);
+
   @override
   Widget build(BuildContext context) {
-    var wordPair = new WordPair.random();
-    return new Text(wordPair.asPascalCase);
+//    var wordPair = new WordPair.random();
+//    return new Text(wordPair.asPascalCase);
+
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text("我的列表"),
+      ),
+      body: _createListView(),
+    );
+  }
+
+  //新增函数
+
+  Widget _createListView() {
+    return new ListView.builder(
+        padding: const EdgeInsets.all(16),
+        itemBuilder: (context, i) {
+          if (i.isOdd) return new Divider();
+          final index = i ~/ 2; //除以2 返回整型，计算减去分割线数量后的实际单词数量
+          if (index >= _wordList.length) {
+            //不够了在继续加单词
+            _wordList.addAll(generateWordPairs().take(10));
+          }
+          return _buildItem(_wordList[index]);
+        });
+  }
+
+  Widget _buildItem(WordPair word) {
+    return new ListTile(
+      title: new Text(
+        word.asPascalCase,
+        style: _fontSize,
+      ),
+    );
   }
 }
