@@ -45,6 +45,9 @@ class RandomWordsState extends State<RandomWords> {
   //创建一个列表，给listiew 塞数据
   final _wordList = <WordPair>[];
 
+  //set 不允许存放重复的值 （存放被收藏的单词）
+  final _saved = new Set<WordPair>();
+
   //字体大小样式
   final _fontSize = const TextStyle(fontSize: 18);
 
@@ -78,11 +81,28 @@ class RandomWordsState extends State<RandomWords> {
   }
 
   Widget _buildItem(WordPair word) {
+    final alreadySaved = _saved.contains(word);
     return new ListTile(
       title: new Text(
         word.asPascalCase,
         style: _fontSize,
       ),
+
+      trailing: new Icon(//根据是否收藏展示图标
+        alreadySaved ? Icons.favorite : Icons.favorite_border,
+        color: alreadySaved ? Colors.red : null,
+      ),
+
+      onTap: () {//点击事件
+        setState(() {
+          if (alreadySaved) {
+            _saved.remove(word);
+          } else {
+            _saved.add(word);
+          }
+        });
+      },
+
     );
   }
 }
