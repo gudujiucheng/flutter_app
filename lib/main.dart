@@ -85,7 +85,7 @@ class RandomWordsState extends State<RandomWords> {
               );
             },
           );
-          //在填充一个分割线
+          //ListTile的divideTiles()方法在每个ListTile之间添加1像素的分割线。 该 divided 变量持有最终的列表项。
           final divided = ListTile
               .divideTiles(
             context: context,
@@ -93,6 +93,7 @@ class RandomWordsState extends State<RandomWords> {
           )
               .toList();
 
+          //builder返回一个Scaffold，其中包含名为“Saved Suggestions”的新路由的应用栏。 新路由的body由包含ListTiles行的ListView组成; 每行之间通过一个分隔线分隔。
           return new Scaffold(
             appBar: new AppBar(
               title: new Text('Saved Suggestions'),
