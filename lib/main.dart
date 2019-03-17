@@ -59,8 +59,48 @@ class RandomWordsState extends State<RandomWords> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("我的列表"),
+        //添加个按钮
+        actions: <Widget>[
+          new IconButton(icon: new Icon(Icons.list), onPressed: _pushSaved),
+        ],
       ),
       body: _createListView(),
+    );
+  }
+
+  void _pushSaved() {//点击事件
+
+    Navigator.of(context).push(//入栈（就是将另外一个页面加入）
+      //新页面的内容在在MaterialPageRoute的builder属性中构建，builder是一个匿名函数。
+      new MaterialPageRoute(
+        builder: (context) {
+          //生成文字item
+          final tiles = _saved.map(
+                (pair) {
+              return new ListTile(
+                title: new Text(
+                  pair.asPascalCase,
+                  style: _fontSize,
+                ),
+              );
+            },
+          );
+          //在填充一个分割线
+          final divided = ListTile
+              .divideTiles(
+            context: context,
+            tiles: tiles,
+          )
+              .toList();
+
+          return new Scaffold(
+            appBar: new AppBar(
+              title: new Text('Saved Suggestions'),
+            ),
+            body: new ListView(children: divided),
+          );
+        },
+      ),
     );
   }
 
