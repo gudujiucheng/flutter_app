@@ -71,3 +71,10 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.io/custom-fonts/#from-packages
+
+
+
+  # 更新 pubspec.yaml 文件以包含 assets 标签. 这样才会使您的图片在代码中可用。
+     assets:
+      - images/test.jpg
+
