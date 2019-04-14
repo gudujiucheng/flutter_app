@@ -23,6 +23,10 @@ class MyApp extends StatelessWidget {
 //        ),
 //      ),
 
+     theme: new ThemeData(//应用主题，里面包含很多属性可控
+       primaryColor: Colors.red,//将应用的主题改变成红色
+     ),
+
      home: new RandomWords(),
 
 
