@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-
 import 'package:flutter_app/bean/about_item.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 void main() => runApp(new MyApp()); //dart 中单行函数的写法
 
@@ -14,18 +13,13 @@ class MyApp extends StatelessWidget {
 
       theme: new ThemeData(
         //应用主题，里面包含很多属性可控
-        primaryColor: Colors.white, //将应用的主题改变成红色
+        primaryColor: Colors.white,
       ),
 
       home: new HomeWeight(), //这里是指定一个weight对象，用来定义应用打开时候的默认页面
     );
   }
 }
-
-// StatelessWidget 是不可变的，意味着属性不能改变，所有的值都是最终的
-// StatefulWidget 在生命周期内是可以变的，实现一个StatefulWidget 至少需要两个类
-//1、StatelessWidget
-//2、State类 StatelessWidget本身是不变的，但是 state在weight声明周期始终存在
 
 class HomeWeight extends StatefulWidget {
   @override
@@ -38,7 +32,9 @@ class HomeWeightState extends State<HomeWeight> {
   final _dataList = <AboutItem>[];
 
   //字体大小样式
-  final _fontSize = const TextStyle(fontSize: 18);
+  final _fontSize = const TextStyle(fontSize: 15,
+    color: Color(0xff050c1c)
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +52,7 @@ class HomeWeightState extends State<HomeWeight> {
           new IconButton(icon: new Icon(Icons.list), onPressed: _jumpToAbout),
         ],
       ),
+      body: Image.asset("images/bg_fenqile_logo.png"),
     );
   }
 
@@ -80,12 +77,13 @@ class HomeWeightState extends State<HomeWeight> {
           return new Scaffold(
             appBar: new AppBar(
               leading: new IconButton(
-                  icon: new Icon(Icons.arrow_back), onPressed: _back),
+                  icon: new Icon(Icons.arrow_back_ios), onPressed: _back),
               title: new Text("关于分期乐"),
               backgroundColor: Color(0xffffffff),
               centerTitle: true,
             ),
             body: _createListView(),
+            backgroundColor: Color(0xffffffff),
           );
         },
       ),
@@ -100,38 +98,73 @@ class HomeWeightState extends State<HomeWeight> {
 
   Widget _createListView() {
     List<Widget> widgetList = <Widget>[];
-    for (var item in _dataList) {
+    for (int i = 0; i < _dataList.length; i++) {
+      AboutItem item = _dataList[i];
       widgetList.add(new ListTile(
         title: new Text(
           item.title,
           style: _fontSize,
         ),
         trailing: new Icon(
-          //根据是否收藏展示图标
           Icons.keyboard_arrow_right,
           color: Colors.grey,
         ),
         onTap: () {
           //点击事件
           Fluttertoast.showToast(
-              msg: "点击位置",
+              msg: "点击位置" + i.toString(),
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.CENTER,
               timeInSecForIos: 1,
               backgroundColor: Colors.red,
               textColor: Colors.black,
-              fontSize: 16.0
-          );
-
+              fontSize: 16.0);
         },
       ));
-
       widgetList.add(new Divider());
     }
-
     return new Center(
-      child: new ListView(
-        children: widgetList,
+      child: new Container(
+        margin: new EdgeInsets.fromLTRB(0.0, 65.0, 0.0, 24.0),
+        child: Column(
+          children: <Widget>[
+            new Container(
+              margin:new EdgeInsets.fromLTRB(0, 0,0, 15),
+              child: new Image.asset(
+                'images/bg_fenqile_logo.png',
+                fit: BoxFit.contain,
+                height: 45,
+                width: 120,
+              ),
+            ),
+            new Text(
+              "当前版本:v1.0.0",
+              style: new TextStyle(
+                fontSize: 13,
+                color: Color(0xFFABADB2)
+              ),
+            ),
+            Expanded(
+              child: Container(
+                margin:new EdgeInsets.fromLTRB(0, 56,0, 0),
+                child: new ListView(
+                  children: widgetList,
+                ),
+
+              ),
+              flex: 1,
+            ),
+            new Text(
+              "分期乐 版权所有\nCopyright © 2013–2019",
+              textAlign:TextAlign.center,
+              style: new TextStyle(
+                  fontSize: 13,
+                  height: 1.5,//行间距
+                  color: Color(0xFFABADB2)
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
