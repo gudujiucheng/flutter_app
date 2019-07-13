@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/page/fql_about/fql_about_page.dart';
+import 'package:flutter_app/page/fql/fql_about/fql_about_page.dart';
+import 'package:flutter_app/page/weight/list_page/list_page.dart';
 
 void main() => runApp(new MyApp()); //dart 中单行函数的写法
-
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
       //这是个脚手架，用来绘制内部的一些元素
       appBar: new AppBar(
         leading:
-        new IconButton(icon: new Icon(Icons.arrow_back), onPressed: _back),
+            new IconButton(icon: new Icon(Icons.arrow_back), onPressed: _back),
         title: new Text(widget.title),
         centerTitle: true,
         //添加个按钮
@@ -68,6 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+
   void _back() {
     Navigator.pop(context);
   }
@@ -86,20 +87,18 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-
 }
-
-
-
 
 const routerName = [
   "分期乐关于页面",
+  "list",
 ];
 
 Map<String, WidgetBuilder> routers = {
   "widget/fql_about": (context) {
     return new FqlAboutPage();
+  },
+  "widget/list": (context) {
+    return new ListDemoPage();
   }
-
 };
-
