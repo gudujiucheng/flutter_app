@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   alignment: Alignment.centerLeft,
                   margin: EdgeInsets.symmetric(horizontal: 10),
                   height: 50,
-                  child: new Text(routerName[index]),
+                  child: new Text(routeLists[index]),
                 ),
               ),
             );
@@ -89,10 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-const routerName = [
-  "分期乐关于页面",
-  "list",
-];
+
 
 Map<String, WidgetBuilder> routers = {
   "widget/fql_about": (context) {
