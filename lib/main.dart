@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/page/fql/fql_about/fql_about_page.dart';
+import 'package:flutter_app/page/fql/fql_app/fql_app_page.dart';
 import 'package:flutter_app/page/weight/list_page/list_page.dart';
+
+//相关电子书学习：https://book.flutterchina.club/
 
 void main() => runApp(new MyApp()); //dart 中单行函数的写法
 
@@ -97,5 +100,9 @@ Map<String, WidgetBuilder> routers = {
   },
   "widget/list": (context) {
     return new ListDemoPage();
+  }
+  ,
+  "widget/fql_app": (context) {
+    return new FqlAppPage();
   }
 };
